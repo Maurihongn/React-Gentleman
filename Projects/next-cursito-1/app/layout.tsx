@@ -1,7 +1,15 @@
+import './tailwind-global.scss';
+import StyledComponentsRegistry from './lib/registry';
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: ['400', '700'],
+  style: ['italic', 'normal'],
+  subsets: ['latin'],
+  variable: '--font-roboto',
+  display: 'optional',
+});
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,8 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={inter.className}>{children}</body>
+    <html lang='es' className={roboto.className}>
+      <body>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
