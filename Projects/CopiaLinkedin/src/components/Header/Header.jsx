@@ -6,8 +6,17 @@ import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css';
 import HeaderOptions from './HeaderOptions/HeaderOptions';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../../features/userSlice';
+import { auth } from '../../fireBase';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const logOutApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
   return (
     <div className='header'>
       <div className='header-left'>
@@ -18,7 +27,7 @@ const Header = () => {
         <div className='header-search'>
           {/* searchicon */}
           <SearchIcon />
-          <input type='text' />
+          <input placeholder='Search' type='text' />
         </div>
       </div>
       <div className='header-right'>
@@ -27,12 +36,7 @@ const Header = () => {
         <HeaderOptions Icon={BusinessCenterIcon} title={'Jobs'} />
         <HeaderOptions Icon={ChatIcon} title={'Messaging'} />
         <HeaderOptions Icon={NotificationsIcon} title={'Notifications'} />
-        <HeaderOptions
-          avatar={
-            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MasterYi_33.jpg'
-          }
-          title={'me'}
-        />
+        <HeaderOptions avatar={true} title={'me'} onClick={logOutApp} />
       </div>
     </div>
   );
